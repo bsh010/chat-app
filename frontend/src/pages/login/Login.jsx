@@ -4,8 +4,8 @@ import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
 
-   const [Username, setUsername] = useState();
-   const [password, setPassword] = useState();
+   const [Username, setUsername] = useState("");
+   const [password, setPassword] = useState("");
    const {loading, login} = useLogin();
 
    const handleSubmit =async (e) => {
