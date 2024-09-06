@@ -13,7 +13,7 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3005;
 const __dirname = path.resolve();
 
 app.use('/api/auth',authRoutes);
