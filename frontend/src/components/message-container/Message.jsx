@@ -1,6 +1,6 @@
-import useConversation from "../../zustand/useConversation";
-import { useAuthContext } from "../../context/AuthContext";
-import { extractTime } from "../../utils/extractTime";
+import useConversation from "../../zustand/useConversation.js";
+import { useAuthContext } from "../../context/AuthContext.jsx";
+import { extractTime } from "../../utils/extractTime.js";
 const Message = ({message}) => {
   const {authUser} = useAuthContext();
   const {selectedConversation} = useConversation();
@@ -26,4 +26,4 @@ const Message = ({message}) => {
   )
 }
 
-export default Message
+export default Message;

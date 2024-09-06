@@ -30,11 +30,11 @@ export const signup = async (req, res) => {
          username,
          password: hashedPassword,
          gender,
-         profilePic: gender === "male" ? boyProfilePic : girlProfilePic
+         profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
       });
       if (newUser) {
          //GENERATE JWT TOKEN
-         await generateTokenandSetCookie(newUser._id, res);
+         generateTokenandSetCookie(newUser._id, res);
          await newUser.save();
 
          res.status(201).json({
@@ -65,7 +65,7 @@ export const login = async (req, res) => {
 
       generateTokenandSetCookie(user._id, res);
 
-      return res.status(200)
+      res.status(200)
       .json({
          _id: user._id,
          fullName: user.fullName,
@@ -83,7 +83,7 @@ export const logout = (req, res) => {
       res.cookie("jwt","",{
          maxAge:0
       });
-      return res.status(200).json({ message: "Logged out successfully" });
+      res.status(200).json({ message: "Logged out successfully" });
    } catch (error) {
       console.log("Error in Loogout controller", error.message);
       res.status(500).json({ "error": "Internal server Error" });

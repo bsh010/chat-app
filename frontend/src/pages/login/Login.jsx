@@ -4,13 +4,13 @@ import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
 
-   const [Username, setUsername] = useState("");
+   const [username, setUsername] = useState("");
    const [password, setPassword] = useState("");
    const {loading, login} = useLogin();
 
    const handleSubmit =async (e) => {
       e.preventDefault();
-      await login(Username, password);
+      await login(username, password);
    }
   return (
     <div className='flex flex-col items-center justify-center min-w-96 mx-auto'>
@@ -24,7 +24,7 @@ const Login = () => {
                <label className="label p-2">
                   <span className="text-base label-text">Username</span>
                </label>
-               <input type="text" placeholder="Enter Username" className="w-full input input-bordered h-10" value={Username} onChange={(e)=>setUsername(e.target.value)}/>
+               <input type="text" placeholder="Enter Username" className="w-full input input-bordered h-10" value={username} onChange={(e)=>setUsername(e.target.value)}/>
             </div>
             <div>
             <label className="label p-2">

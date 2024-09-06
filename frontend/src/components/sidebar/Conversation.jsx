@@ -2,10 +2,10 @@ import useConversation from "../../zustand/useConversation"
 import { useSocketContext } from "../../context/SocketContext";
 const Conversation = ({conversation,lastIdx, emoji}) => {
    const {selectedConversation,setSelectedConversation} = useConversation();
+   const isSelected = selectedConversation?._id === conversation._id;
    const {onlineUsers} = useSocketContext();
    const isOnline = onlineUsers.includes(conversation._id);
 
-   const isSelected = selectedConversation?._id === conversation._id;
   return (
     <>
       <div className={`flex gap-2 items-center hover:bg-purple-500 p-2 py-1 cursor-pointer ${isSelected ? "bg-purple-500" :""}`} onClick={()=>setSelectedConversation(conversation)}>

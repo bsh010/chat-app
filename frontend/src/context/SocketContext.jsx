@@ -2,10 +2,12 @@ import { createContext, useEffect, useState ,useContext} from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { io } from "socket.io-client";
 
+const SocketContext = createContext();
+
+// eslint-disable-next-line react-refresh/only-export-components
 export const useSocketContext = ()=>{
    return useContext(SocketContext);
 }
-const SocketContext = createContext();
 export const SocketContextProvider = ({ children }) => {
    const [socket,setSocket] = useState(null);
    const [onlineUsers,setOnlineUsers] = useState([]);
@@ -32,7 +34,8 @@ export const SocketContextProvider = ({ children }) => {
             setSocket(null); 
          }
       }
-   }, [authUser,socket])
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [authUser]);
    
    return (
       <SocketContext.Provider value={{socket,onlineUsers}}>
