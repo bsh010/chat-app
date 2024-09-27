@@ -1,45 +1,41 @@
-import { createContext, useEffect, useState ,useContext} from "react";
-import { useAuthContext } from "../context/AuthContext";
-import { io } from "socket.io-client";
+import { createContext, useState, useEffect, useContext } from "react";
+import { useAuthContext } from "./AuthContext";
+import io from "socket.io-client";
 
 const SocketContext = createContext();
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const useSocketContext = ()=>{
-   return useContext(SocketContext);
-}
+export const useSocketContext = () => {
+	return useContext(SocketContext);
+};
+
 export const SocketContextProvider = ({ children }) => {
-   const [socket,setSocket] = useState(null);
-   const [onlineUsers,setOnlineUsers] = useState([]);
-   const {authUser} = useAuthContext();
-   
-   
-   useEffect(() => {
-      if(authUser){
-         const socket = io("https://chat-app-2tr1.onrender.com",{
-            query: {
-               userId: authUser._id 
-            }
-         });
-         setSocket(socket);
+	const [socket, setSocket] = useState(null);
+	const [onlineUsers, setOnlineUsers] = useState([]);
+	const { authUser } = useAuthContext();
 
-         socket.on("getOnlineUsers",(users)=>{
-            setOnlineUsers(users);
-         })
+	useEffect(() => {
+		if (authUser) {
+			const socket = io("https://chat-app-yt.onrender.com", {
+				query: {
+					userId: authUser._id,
+				},
+			});
 
-         return()=>socket.close();
-      }else{
-         if(socket){
-            socket.close();
-            setSocket(null); 
-         }
-      }
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [authUser]);
-   
-   return (
-      <SocketContext.Provider value={{socket,onlineUsers}}>
-         {children}
-      </SocketContext.Provider>
-   )
-}
+			setSocket(socket);
+
+			// socket.on() is used to listen to the events. can be used both on client and server side
+			socket.on("getOnlineUsers", (users) => {
+				setOnlineUsers(users);
+			});
+
+			return () => socket.close();
+		} else {
+			if (socket) {
+				socket.close();
+				setSocket(null);
+			}
+		}
+	}, [authUser]);
+
+	return <SocketContext.Provider value={{ socket, onlineUsers }}>{children}</SocketContext.Provider>;
+};
